@@ -2,5 +2,7 @@ package com.muntian.cardatabase.db;
 
 public enum OperationResult {
     SUCCESS,
-    ERROR
+    ERROR,
+    EXIST,
+    NOT_EXIST
 }

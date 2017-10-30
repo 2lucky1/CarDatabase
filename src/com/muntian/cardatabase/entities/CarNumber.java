@@ -21,7 +21,7 @@ public class CarNumber implements Cloneable {
                 || serialBeforeNumber == null
                 || number > 9999 || number < 0) {
             throw new IllegalArgumentException(String.format("Invalid args: %s %d %s%n",
-                    serialBeforeNumber, number, serialAfterNumber));
+                                               serialBeforeNumber, number, serialAfterNumber));
         }
     }
 
@@ -60,10 +60,4 @@ public class CarNumber implements Cloneable {
     public String toString() {
         return String.format("%s %.4d %s", getSerialBeforeNumber(), getNumber(), getSerialAfterNumber());
     }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return (CarNumber)super.clone();
-    }
 }
-

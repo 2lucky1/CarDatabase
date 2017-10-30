@@ -9,9 +9,9 @@ import java.util.Set;
 public class Car implements Cloneable {
     private final String _mark;
     private final String _model;
-    private final Set<Driver> _drivers = new HashSet<>();
     private final Calendar _year;
 
+    private Set<Driver> _drivers = new HashSet<>();
     private int _distance = 0;
     private Color _color;
 
@@ -30,6 +30,15 @@ public class Car implements Cloneable {
         _model = model;
         _year = year;
         _color = color;
+    }
+
+    private Car(Car car) {
+        _color = car._color;
+        _model = car._model;
+        _mark = car._mark;
+        _distance = car._distance;
+        _drivers = car._drivers;
+        _year = car._year;
     }
 
     public String getMark() {
@@ -70,6 +79,10 @@ public class Car implements Cloneable {
         _color = color;
     }
 
+    public boolean isModifiable() {
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,13 +106,31 @@ public class Car implements Cloneable {
         return result;
     }
 
+    public static Car unmodifiable(Car car) {
+        return new UnmodifiableCar(car);
+    }
 
-//    @Override
-////    protected Object clone() throws CloneNotSupportedException {
-//        Car clone = (Car) super.clone();
-//        for (Driver driver : this._drivers){
-//            driver.clone();
-//        }
-//        return clone;
-//    }
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    private static class UnmodifiableCar extends Car {
+
+        public UnmodifiableCar(Car car) {
+            super(car);
+        }
+
+        @Override
+        public void setDistance(int distance) {
+            throw new UnsupportedOperationException("Car is not modifiable");
+        }
+
+        @Override
+        public void setColor(Color color) {
+            throw new UnsupportedOperationException("Car is not modifiable");
+        }
+
+        @Override
+        public boolean isModifiable() {
+            return false;
+        }
+    }
 }
