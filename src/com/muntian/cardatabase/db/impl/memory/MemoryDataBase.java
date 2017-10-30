@@ -37,8 +37,11 @@ public class MemoryDataBase implements DataBase {
 
     @Override
     public Map<CarNumber, Car> findAll() {
-        return MemoryDataBase.unmodifiable(_data);
-//        return Collections.unmodifiableMap(_data);//TODO Запретить изменения автомобилей внутри базы
+        Map<CarNumber, Car> temp = new HashMap<>();
+        for (Map.Entry entry : this._data.entrySet()){
+            temp.put((CarNumber)(entry.getKey()),Car.unmodifiable((Car)(entry.getValue())));
+        }
+        return temp;
     }
 
     @Override
@@ -103,98 +106,4 @@ public class MemoryDataBase implements DataBase {
 
         return OperationResult.SUCCESS;
     }
-
-    public static Map unmodifiable(Map map){
-        return new UnmodifiableMap(map);
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private static class UnmodifiableMap extends HashMap{
-        public UnmodifiableMap(Map map){
-            super(map);
-        }
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public void putAll(Map m) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public Object remove(Object key) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public void clear() {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public Object putIfAbsent(Object key, Object value) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public boolean remove(Object key, Object value) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public boolean replace(Object key, Object oldValue, Object newValue) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public Object replace(Object key, Object value) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-
-        @Override
-        public void replaceAll(BiFunction function) {
-            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-        }
-    }
-
-//    private static class UnmodifiableMemoryDataBase extends MemoryDataBase {
-//
-//        public UnmodifiableMemoryDataBase(MemoryDataBase memoryDataBase) {
-//            super(memoryDataBase);
-//        }
-//
-//        @Override
-//        public OperationResult setNewColor(CarNumber carNumber, Color newColor) {
-//            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-//        }
-//
-//        @Override
-//        public OperationResult add(CarNumber carNumber, Car car) {
-//            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-//        }
-//
-//        @Override
-//        public OperationResult delete(CarNumber carNumber) {
-//            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-//        }
-//
-//        @Override
-//        public OperationResult delete(Car car) {
-//            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-//        }
-//
-//        @Override
-//        public OperationResult deleteAll() {
-//            throw new UnsupportedOperationException(MEMORY_BASE_IS_NOT_MODIFIABLE);
-//        }
-//
-//        @Override
-//        public boolean isModifiable() {
-//            return false;
-//        }
-//    }
 }
