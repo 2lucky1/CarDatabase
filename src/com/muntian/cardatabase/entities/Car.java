@@ -1,10 +1,7 @@
 package com.muntian.cardatabase.entities;
 
 import java.awt.*;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Car implements Cloneable {
     private final String _mark;
@@ -77,6 +74,15 @@ public class Car implements Cloneable {
             throw new NullPointerException("Color cannot be null");
         }
         _color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "mark: " + this.getMark() +
+                ", model: " + this.getModel() +
+                ", year: " + this.getYear().get(Calendar.YEAR) +
+                ", color: " + this.getColor() + '}';
     }
 
     public boolean isModifiable() {

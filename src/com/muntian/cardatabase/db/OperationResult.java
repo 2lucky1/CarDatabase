@@ -4,5 +4,6 @@ public enum OperationResult {
     SUCCESS,
     ERROR,
     EXIST,
-    NOT_EXIST
+    NOT_EXIST,
+    IS_EMPTY
 }

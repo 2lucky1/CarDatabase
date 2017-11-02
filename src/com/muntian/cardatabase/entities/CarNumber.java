@@ -58,6 +58,6 @@ public class CarNumber implements Cloneable {
 
     @Override
     public String toString() {
-        return String.format("%s %.4d %s", getSerialBeforeNumber(), getNumber(), getSerialAfterNumber());
+        return String.format("%s %4d %s", getSerialBeforeNumber(), getNumber(), getSerialAfterNumber());
     }
 }

@@ -7,47 +7,17 @@ import com.muntian.cardatabase.entities.CarNumber;
 
 import java.awt.*;
 import java.util.*;
-import java.util.function.BiFunction;
 
 public class MemoryDataBase implements DataBase {
 
-    public static final String MEMORY_BASE_IS_NOT_MODIFIABLE = "MemoryBase is not modifiable";
     private Map<CarNumber, Car> _data;
 
     public MemoryDataBase() {
         _data = new HashMap<>();
     }
 
-    private MemoryDataBase(MemoryDataBase memoryDataBase) {
-        _data = memoryDataBase._data;
-    }
-
     public Map<CarNumber, Car> get_data() {
         return _data;
-    }
-
-    public boolean isModifiable(){
-        return true;
-    }
-
-    @Override
-    public OperationResult setNewColor(CarNumber carNumber, Color newColor) {
-        return null;
-    }
-
-    @Override
-    public Map<CarNumber, Car> findAll() {
-        Map<CarNumber, Car> temp = new HashMap<>();
-        for (Map.Entry entry : this._data.entrySet()){
-            temp.put((CarNumber)(entry.getKey()),Car.unmodifiable((Car)(entry.getValue())));
-        }
-        return temp;
-    }
-
-    @Override
-    public Car findByCarNumber(CarNumber carNumber) {
-        Car modifiableCar = _data.get(carNumber);
-        return Car.unmodifiable(modifiableCar);
     }
 
     @Override
@@ -104,6 +74,40 @@ public class MemoryDataBase implements DataBase {
         }
         _data.clear();
 
+        return OperationResult.SUCCESS;
+    }
+
+    @Override
+    public Car findByCarNumber(CarNumber carNumber) {
+        Car modifiableCar = _data.get(carNumber);
+        return Car.unmodifiable(modifiableCar);
+    }
+
+    @Override
+    public Map<CarNumber, Car> findAll() {
+        Map<CarNumber, Car> temp = new HashMap<>();
+        for (Map.Entry entry : this._data.entrySet()) {
+            temp.put((CarNumber) (entry.getKey()), Car.unmodifiable((Car) (entry.getValue())));
+        }
+        return temp;
+    }
+
+    @Override
+    public OperationResult setNewColor(CarNumber carNumber, Color newColor) {
+        if (this._data.get(carNumber) == null) {
+            return OperationResult.NOT_EXIST;
+        }
+        this._data.get(carNumber).setColor(newColor);
+        return OperationResult.SUCCESS;
+    }
+
+    @Override
+    public OperationResult printDataBase() {
+        System.out.println("Printing of the data base");
+        if (this._data.isEmpty()) {
+            return OperationResult.IS_EMPTY;
+        }
+        this._data.forEach((CarNumber, Car) -> System.out.println("CarNumber: " + CarNumber + "\t" + Car));
         return OperationResult.SUCCESS;
     }
 }

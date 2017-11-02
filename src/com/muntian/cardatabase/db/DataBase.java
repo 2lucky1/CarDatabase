@@ -9,10 +9,18 @@ import java.util.Map;
 public interface DataBase {
 
     Map<CarNumber, Car> findAll();
+
     Car findByCarNumber(CarNumber carNumber);
+
     OperationResult add(CarNumber carNumber, Car car);
+
     OperationResult delete(CarNumber carNumber);
+
     OperationResult delete(Car car);
+
     OperationResult deleteAll();
+
     OperationResult setNewColor(CarNumber carNumber, Color newColor);
+
+    OperationResult printDataBase();
 }
