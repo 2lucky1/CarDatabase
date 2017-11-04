@@ -8,6 +8,7 @@ import com.muntian.cardatabase.entities.CarNumber;
 import java.awt.*;
 import java.util.GregorianCalendar;
 
+//This whole class is my code
 public class Main {
 
     private static final String ADDITION_TO_THE_DATA_BASE = "Addition to the data base";

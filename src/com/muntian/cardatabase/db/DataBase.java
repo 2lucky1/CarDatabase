@@ -22,5 +22,6 @@ public interface DataBase {
 
     OperationResult setNewColor(CarNumber carNumber, Color newColor);
 
+    //My code
     OperationResult printDataBase();
 }

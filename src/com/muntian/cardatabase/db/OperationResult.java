@@ -5,5 +5,5 @@ public enum OperationResult {
     ERROR,
     EXIST,
     NOT_EXIST,
-    IS_EMPTY
+    IS_EMPTY //My code
 }

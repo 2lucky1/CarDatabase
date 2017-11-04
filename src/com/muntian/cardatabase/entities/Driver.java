@@ -1,5 +1,6 @@
 package com.muntian.cardatabase.entities;
 
+//This whole class is my code
 public class Driver implements Cloneable {
     private String firstName;
     private String lastName;

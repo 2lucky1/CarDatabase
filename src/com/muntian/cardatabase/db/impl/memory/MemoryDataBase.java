@@ -83,6 +83,7 @@ public class MemoryDataBase implements DataBase {
         return Car.unmodifiable(modifiableCar);
     }
 
+    //My code
     @Override
     public Map<CarNumber, Car> findAll() {
         Map<CarNumber, Car> temp = new HashMap<>();
@@ -92,6 +93,7 @@ public class MemoryDataBase implements DataBase {
         return temp;
     }
 
+    //My code
     @Override
     public OperationResult setNewColor(CarNumber carNumber, Color newColor) {
         if (this._data.get(carNumber) == null) {
@@ -101,6 +103,7 @@ public class MemoryDataBase implements DataBase {
         return OperationResult.SUCCESS;
     }
 
+    //My code
     @Override
     public OperationResult printDataBase() {
         System.out.println("Printing of the data base");

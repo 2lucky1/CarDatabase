@@ -76,6 +76,7 @@ public class Car implements Cloneable {
         _color = color;
     }
 
+    //My code
     @Override
     public String toString() {
         return "Car{" +
