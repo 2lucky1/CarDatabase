@@ -4,8 +4,10 @@ import com.muntian.cardatabase.db.DataBase;
 import com.muntian.cardatabase.db.impl.memory.MemoryDataBase;
 import com.muntian.cardatabase.entities.Car;
 import com.muntian.cardatabase.entities.CarNumber;
+import com.muntian.cardatabase.entities.Driver;
 
 import java.awt.*;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 //This whole class is my code
@@ -13,9 +15,11 @@ public class Main {
 
     private static final String ADDITION_TO_THE_DATA_BASE = "Addition to the data base";
     private static final String DONE = "Done";
+    public static final String CHANGED_DATA_BASE = "Changed data base";
 
     public static void main(String[] args) {
-        testAdd();
+        testClone();
+//        testAdd();
 //        testDeleteByKey();
 //        testDeleteByValue();
 //        testDeleteAll();
@@ -23,6 +27,49 @@ public class Main {
 //        testFindAll();
 //        testSetNewColor();
 
+    }
+
+    private static void testClone() {
+        Car car = new Car("Jaguar","X40",new GregorianCalendar(2014,11,4),Color.BLUE);
+
+        try {
+            Car car1 = (Car) car.clone();
+            car1.setColor(Color.BLACK);
+            car1.setDistance(325);
+            car1.getYear().setTime(new Date(455543L));
+            System.out.println("car");
+            System.out.println(car);
+            System.out.println("car1");
+            System.out.println(car1);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
+
+        CarNumber carNumber = new CarNumber("EE",3333,"BB");
+        try {
+            CarNumber carNumber1 = (CarNumber) carNumber.clone();
+            System.out.println("carNumber");
+            System.out.println(carNumber);
+            System.out.println("carNumber1");
+            System.out.println(carNumber1);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
+
+        Driver driver = new Driver("Hulio","Ignacio","13.01.1982",36787612);
+        try {
+            Driver driver1 = (Driver) driver.clone();
+            driver1.setFirstName("David");
+            driver1.setLastName("Balfure");
+            System.out.println("driver");
+            System.out.println(driver);
+            System.out.println("driver1");
+            System.out.println(driver1);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void fillDataBase(DataBase dataBase) {
@@ -80,7 +127,7 @@ public class Main {
         System.out.println(dataBase.delete(new CarNumber("AE", 4567, "BB")));
         System.out.println();
 
-        System.out.println("Changed data base");
+        System.out.println(CHANGED_DATA_BASE);
         System.out.println(dataBase.printDataBase());
         System.out.println();
 
@@ -98,7 +145,7 @@ public class Main {
                 new GregorianCalendar(2014, 12, 7), Color.BLACK)));
         System.out.println();
 
-        System.out.println("Changed data base");
+        System.out.println(CHANGED_DATA_BASE);
         System.out.println(dataBase.printDataBase());
         System.out.println();
 
@@ -114,7 +161,7 @@ public class Main {
         System.out.println("Removal of all elements: " + dataBase.deleteAll());
         System.out.println();
 
-        System.out.println("Changed data base");
+        System.out.println(CHANGED_DATA_BASE);
         System.out.println(dataBase.printDataBase());
         System.out.println();
         System.out.println(DONE + " testDeleteAll()");
@@ -148,7 +195,7 @@ public class Main {
         copy1.printDataBase();
         System.out.println();
 
-        System.out.println("Trying to change data base: ");
+        System.out.println("Trying to " + CHANGED_DATA_BASE + ": ");
         try {
             copy1.findByCarNumber(new CarNumber("AE", 4567, "BB")).setDistance(562);
         } finally {
@@ -166,7 +213,7 @@ public class Main {
         System.out.println(dataBase.setNewColor(new CarNumber("AE", 4567, "BB"), Color.BLUE));
         System.out.println();
 
-        System.out.println("Changed data base");
+        System.out.println(CHANGED_DATA_BASE);
         System.out.println(dataBase.printDataBase());
         System.out.println();
 

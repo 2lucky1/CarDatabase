@@ -60,4 +60,9 @@ public class CarNumber implements Cloneable {
     public String toString() {
         return String.format("%s %4d %s", getSerialBeforeNumber(), getNumber(), getSerialAfterNumber());
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

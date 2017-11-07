@@ -83,6 +83,7 @@ public class Car implements Cloneable {
                 "mark: " + this.getMark() +
                 ", model: " + this.getModel() +
                 ", year: " + this.getYear().get(Calendar.YEAR) +
+                ", distance: " + this.getDistance() +
                 ", color: " + this.getColor() + '}';
     }
 
@@ -115,6 +116,11 @@ public class Car implements Cloneable {
 
     public static Car unmodifiable(Car car) {
         return new UnmodifiableCar(car);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
