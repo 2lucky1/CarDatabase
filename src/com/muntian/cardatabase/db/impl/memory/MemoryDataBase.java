@@ -6,9 +6,10 @@ import com.muntian.cardatabase.entities.Car;
 import com.muntian.cardatabase.entities.CarNumber;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 
-public class MemoryDataBase implements DataBase {
+public class MemoryDataBase implements DataBase, Serializable {
 
     private Map<CarNumber, Car> _data;
 

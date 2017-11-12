@@ -1,9 +1,10 @@
 package com.muntian.cardatabase.entities;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 
-public class Car implements Cloneable {
+public class Car implements Cloneable, Serializable {
     private final String _mark;
     private final String _model;
     private final Calendar _year;

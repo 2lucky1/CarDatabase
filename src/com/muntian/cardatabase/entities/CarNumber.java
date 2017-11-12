@@ -1,6 +1,8 @@
 package com.muntian.cardatabase.entities;
 
-public class CarNumber implements Cloneable {
+import java.io.Serializable;
+
+public class CarNumber implements Cloneable, Serializable {
     private final String _serialBeforeNumber;
     private final int _number;
     private final String _serialAfterNumber;
@@ -21,7 +23,7 @@ public class CarNumber implements Cloneable {
                 || serialBeforeNumber == null
                 || number > 9999 || number < 0) {
             throw new IllegalArgumentException(String.format("Invalid args: %s %d %s%n",
-                                               serialBeforeNumber, number, serialAfterNumber));
+                    serialBeforeNumber, number, serialAfterNumber));
         }
     }
 

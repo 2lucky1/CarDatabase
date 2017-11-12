@@ -1,7 +1,9 @@
 package com.muntian.cardatabase.entities;
 
+import java.io.Serializable;
+
 //This whole class is my code
-public class Driver implements Cloneable {
+public class Driver implements Cloneable, Serializable {
     private String firstName;
     private String lastName;
     private String birthDay;
@@ -18,7 +20,7 @@ public class Driver implements Cloneable {
                            String lastName) {
         if (firstName == null || lastName == null || birthDay == null || iDnumber == 0) {
             throw new IllegalArgumentException(String.format("Invalid args: %s %s %s %d%n",
-                    firstName, lastName,birthDay,iDnumber));
+                    firstName, lastName, birthDay, iDnumber));
         }
     }
 

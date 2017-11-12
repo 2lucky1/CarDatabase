@@ -7,6 +7,7 @@ import com.muntian.cardatabase.entities.CarNumber;
 import com.muntian.cardatabase.entities.Driver;
 
 import java.awt.*;
+import java.io.*;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -15,10 +16,11 @@ public class Main {
 
     private static final String ADDITION_TO_THE_DATA_BASE = "Addition to the data base";
     private static final String DONE = "Done";
-    public static final String CHANGED_DATA_BASE = "Changed data base";
+    private static final String CHANGED_DATA_BASE = "Changed data base";
 
     public static void main(String[] args) {
-        testClone();
+        serializationOfMemoryDataBase();
+//        testClone();
 //        testAdd();
 //        testDeleteByKey();
 //        testDeleteByValue();
@@ -29,8 +31,34 @@ public class Main {
 
     }
 
+    private static void serializationOfMemoryDataBase() {
+        //Create object
+        DataBase dataBase = new MemoryDataBase();
+        fillDataBase(dataBase);
+        System.out.println(dataBase.printDataBase());
+        System.out.println();
+
+        //Write object in file
+        System.out.println("Start of writing in the file");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("cars.dat"))) {
+            oos.writeObject(dataBase);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Writing is finished");
+
+        //Read object
+        System.out.println("Reading from the file");
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("cars.dat"))) {
+            DataBase readDataBase = (DataBase) ois.readObject();
+            System.out.println(readDataBase.printDataBase());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void testClone() {
-        Car car = new Car("Jaguar","X40",new GregorianCalendar(2014,11,4),Color.BLUE);
+        Car car = new Car("Jaguar", "X40", new GregorianCalendar(2014, 11, 4), Color.BLUE);
 
         try {
             Car car1 = (Car) car.clone();
@@ -46,7 +74,7 @@ public class Main {
         }
         System.out.println();
 
-        CarNumber carNumber = new CarNumber("EE",3333,"BB");
+        CarNumber carNumber = new CarNumber("EE", 3333, "BB");
         try {
             CarNumber carNumber1 = (CarNumber) carNumber.clone();
             System.out.println("carNumber");
@@ -58,7 +86,7 @@ public class Main {
         }
         System.out.println();
 
-        Driver driver = new Driver("Hulio","Ignacio","13.01.1982",36787612);
+        Driver driver = new Driver("Hulio", "Ignacio", "13.01.1982", 36787612);
         try {
             Driver driver1 = (Driver) driver.clone();
             driver1.setFirstName("David");
